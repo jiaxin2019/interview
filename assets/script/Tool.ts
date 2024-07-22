@@ -1,4 +1,14 @@
 
+
+export class Tool {
+    public static isNumber(val: any) {
+        if (typeof val == "number") {
+            return true;
+        }
+        return false;
+    }
+}
+
 /**
  * 按钮点击限制节流
  * 使用：

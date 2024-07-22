@@ -1,6 +1,6 @@
 import { _decorator, color, Component, EditBox, instantiate, math, Node, NodeEventType } from 'cc';
 import { IMatrixItem, MatrixItem } from './MatrixItem';
-import { ButtonLock } from './Tool';
+import { ButtonLock, Tool } from './Tool';
 const { ccclass, property } = _decorator;
 
 @ccclass('MatrixComp')
@@ -24,7 +24,7 @@ export class MatrixComp extends Component {
 
     //五种颜色的基础概率：1 / 5 * 100
     private basePer = 20;
-    //五种颜色的
+    //五种颜色的 权重概率
     private perMap: Map<string, number> = new Map();
     start() {
         this.node.getChildByName("creatBtn").on(NodeEventType.TOUCH_END, this.onTouch, this);
@@ -35,14 +35,26 @@ export class MatrixComp extends Component {
     @ButtonLock()
     private onTouch() {
         console.warn("creatBtn", this.xEB.string, this.yEB.string);
-        // if (!this.xEB.string || !this.yEB.string) {
-        //     return;
-        // }
-        this.m = +this.xEB.string;
-        this.n = +this.yEB.string;
+        this.m = this.getMNnum(+this.xEB.string);
+        this.n = this.getMNnum(+this.yEB.string);
         this.creatNode();
     }
 
+    private getMNnum(data: any) {
+        if (Tool.isNumber(data)) {
+            if (data < 1) {
+                return 1;
+            } else if (data > 10) {
+                return 10;
+            } else {
+                return data;
+            }
+        } else {
+            return 1
+        }
+    }
+
+    /** 创建 格子，并初始化颜色 */
     private creatNode() {
         this.initWid();
         let parNode = this.node.getChildByPath("parNode");
