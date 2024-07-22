@@ -34,7 +34,6 @@ export class MatrixComp extends Component {
 
     @ButtonLock()
     private onTouch() {
-        console.warn("creatBtn", this.xEB.string, this.yEB.string);
         this.m = this.getMNnum(+this.xEB.string);
         this.n = this.getMNnum(+this.yEB.string);
         this.creatNode();
