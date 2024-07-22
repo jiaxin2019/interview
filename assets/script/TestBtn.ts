@@ -1,11 +1,11 @@
-import { _decorator, AnimationState, Animation,Component, isValid, Node, NodeEventType } from 'cc';
+import { _decorator, AnimationState, Animation, Component, isValid, Node, NodeEventType } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('TestBtn')
 export class TestBtn extends Component {
     private anim: Animation = null!;
     protected onLoad(): void {
-        this.node.getChildByName("button").on(NodeEventType.TOUCH_START,this.onClickStart,this);
+        this.node.getChildByName("button").on(NodeEventType.TOUCH_START, this.onClickStart, this);
         this.node.getChildByName("button").on(NodeEventType.TOUCH_END, this.onClickEnd, this);
         this.node.getChildByName("button").on(NodeEventType.TOUCH_CANCEL, this.onClickEnd, this);
 

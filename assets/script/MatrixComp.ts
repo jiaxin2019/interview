@@ -12,23 +12,22 @@ export class MatrixComp extends Component {
         , "#AC4133"
         , "#1A39B3"
         , "#8C5C1F"]
-    //每个点可选 5 种颜⾊中的 1种
-    private random = 0;
-    
+
     private xEB: EditBox = null!;
     private yEB: EditBox = null!;
-    
-    private m: number;
-    private n: number;
+
+    private m: number = 1;
+    private n: number = 1;
 
     private mnColor: string;
     private mnColor1: string;
 
+    //五种颜色的基础概率：1 / 5 * 100
     private basePer = 20;
+    //五种颜色的
     private perMap: Map<string, number> = new Map();
     start() {
-       
-        this.node.getChildByName("creatBtn").on(NodeEventType.TOUCH_END,this.onTouch,this);
+        this.node.getChildByName("creatBtn").on(NodeEventType.TOUCH_END, this.onTouch, this);
         this.xEB = this.node.getChildByPath("xEB")?.getComponent(EditBox)!
         this.yEB = this.node.getChildByPath("yEB")?.getComponent(EditBox)!
     }
@@ -36,9 +35,9 @@ export class MatrixComp extends Component {
     @ButtonLock()
     private onTouch() {
         console.warn("creatBtn", this.xEB.string, this.yEB.string);
-        if (!this.xEB.string || !this.yEB.string) {
-            return;
-        }
+        // if (!this.xEB.string || !this.yEB.string) {
+        //     return;
+        // }
         this.m = +this.xEB.string;
         this.n = +this.yEB.string;
         this.creatNode();
@@ -49,7 +48,7 @@ export class MatrixComp extends Component {
         let parNode = this.node.getChildByPath("parNode");
         let childNode = this.node.getChildByPath("childNode");
         parNode.destroyAllChildren();
-        for (let i = 1; i <= 10; i++){
+        for (let i = 1; i <= 10; i++) {
             for (let j = 1; j <= 10; j++) {
                 const child = instantiate(childNode);
                 let ts = child.addComponent(MatrixItem);
@@ -57,7 +56,7 @@ export class MatrixComp extends Component {
                 let colorStr;
                 if (i == 1 && j == 1) {
                     colorStr = this.ranomColor;
-                } else if(i == this.m && j == this.n - 1){
+                } else if (i == this.m && j == this.n - 1) {
                     colorStr = this.mnColor;
                 } else if (i == this.m && j == this.n - 1) {
                     colorStr = this.mnColor1;
@@ -76,6 +75,7 @@ export class MatrixComp extends Component {
         }
     }
 
+    /**初始化不同颜色的权重*/
     private initWid() {
         this.perMap.clear();
         let colorStr = this.ranomColor;
@@ -90,23 +90,23 @@ export class MatrixComp extends Component {
             this.perMap.set(colorStr1, this.basePer + this.m);
         }
 
-        let leftPer =( 100 - this.perMap.get(colorStr) - this.perMap.get(colorStr1)) / 3;
+        let leftPer = (100 - this.perMap.get(colorStr) - this.perMap.get(colorStr1)) / 3;
         this.colors.forEach((color) => {
             if (!this.perMap.has(color)) {
-                this.perMap.set(color,leftPer);
+                this.perMap.set(color, leftPer);
             }
         })
     }
 
+    /** 5个颜色中随机一个颜色 */
     private get ranomColor() {
         let random = Math.random();
-        let index = Math.floor(random * 5)
-        this.random = random;
+        let index = Math.floor(random * 5);
         let ranomColor = this.colors[index];
         return ranomColor;
     }
 
-
+    /** 权重随机 */
     private weightedChoice() {
         let randomNum = Math.random() * 100;
         let cumulativeWeight = 0;

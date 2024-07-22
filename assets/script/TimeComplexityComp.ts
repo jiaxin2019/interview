@@ -9,7 +9,7 @@ export class TimeComplexityComp extends Component {
 
     start() {
         //第一种方法：时间复杂度：O（n）* O(m)
-        console.log("第一种方法:", this.func1()) ;
+        console.log("第一种方法:", this.func1());
     }
 
     private func1() {
@@ -17,7 +17,7 @@ export class TimeComplexityComp extends Component {
         let len2 = this.arr2.length;
         for (let i = 0; i < len1; i++) {
             const element1 = this.arr1[i];
-            if (element1< this.tarNum) {
+            if (element1 > this.tarNum) {
                 continue;
             }
             for (let j = 0; j < len2; j++) {
@@ -26,13 +26,13 @@ export class TimeComplexityComp extends Component {
                     return true;
                 }
             }
-            
+
         }
         return false;
     }
 
     update(deltaTime: number) {
-        
+
     }
 }
 

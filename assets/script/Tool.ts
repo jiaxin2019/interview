@@ -1,16 +1,3 @@
-import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('Tool')
-export class Tool extends Component {
-    start() {
-
-    }
-
-    update(deltaTime: number) {
-        
-    }
-}
 
 /**
  * 按钮点击限制节流
