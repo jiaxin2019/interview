@@ -94,15 +94,17 @@ export class MatrixComp extends Component {
         let colorStr1 = this.ranomColor;
         this.mnColor = colorStr;
         this.mnColor1 = colorStr1;
+        let leftPer = 20;
         if (colorStr == colorStr1) {
             this.perMap.set(colorStr, this.basePer + this.n);
             this.perMap.set(colorStr1, this.basePer + this.n);
+            leftPer = (100 - this.perMap.get(colorStr)) / 4;
         } else {
             this.perMap.set(colorStr, this.basePer + this.m);
             this.perMap.set(colorStr1, this.basePer + this.m);
+            leftPer = (100 - this.perMap.get(colorStr) - this.perMap.get(colorStr1)) / 3;
         }
 
-        let leftPer = (100 - this.perMap.get(colorStr) - this.perMap.get(colorStr1)) / 3;
         this.colors.forEach((color) => {
             if (!this.perMap.has(color)) {
                 this.perMap.set(color, leftPer);
