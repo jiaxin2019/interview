@@ -97,7 +97,6 @@ export class MatrixComp extends Component {
         let leftPer = 20;
         if (colorStr == colorStr1) {
             this.perMap.set(colorStr, this.basePer + this.n);
-            this.perMap.set(colorStr1, this.basePer + this.n);
             leftPer = (100 - this.perMap.get(colorStr)) / 4;
         } else {
             this.perMap.set(colorStr, this.basePer + this.m);
