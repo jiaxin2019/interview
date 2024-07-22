@@ -8,8 +8,13 @@ export class TimeComplexityComp extends Component {
     private tarNum = 42;
 
     start() {
-        //第一种方法：时间复杂度：O（n）* O(m)
+        //第一种方法：时间复杂度：O（n^2）
+        //一个for的时间复杂度是 O（n）
+        //for再嵌套一个for的时间复杂度是O（n^2）
+        //这两个for中的判断可以忽略不计，计算的极值
         console.log("第一种方法:", this.func1());
+
+
     }
 
     private func1() {
@@ -31,9 +36,7 @@ export class TimeComplexityComp extends Component {
         return false;
     }
 
-    update(deltaTime: number) {
 
-    }
 }
 
 
